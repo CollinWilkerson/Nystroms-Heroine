@@ -29,5 +29,10 @@ public class StandingState : MonoBehaviour, IHeroineState
             _heroine.Transition(gameObject.AddComponent<DuckingState>() as IHeroineState);
             Destroy(this);
         }
+
+        if (_heroine.rb.linearVelocity.x >= _heroine.clampCutoff)
+        {
+            _heroine.rb.linearVelocity -= _heroine.rb.linearVelocity * _heroine.clampSpeed;
+        }
     }
 }

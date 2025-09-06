@@ -6,10 +6,13 @@ public class Heroine : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
 
     public LayerMask groundMask;
+    public float clampCutoff = 0.1f;
+    public float clampSpeed = 0.5f;
     public float jumpCheckHeight = 1.0f;
     public float jumpForce = 10.0f;
     public float walkSpeed = 1.0f;
     public float runSpeed = 2.0f;
+    public float diveSpeed = 5f;
     public IHeroineState currentState;
 
     public void Transition(IHeroineState state)
@@ -32,6 +35,11 @@ public class Heroine : MonoBehaviour
         currentState = gameObject.AddComponent<StandingState>() as IHeroineState;
 
         Transition(currentState);
+    }
+
+    private void LateUpdate()
+    {
+        Debug.DrawRay(transform.position, Vector3.down * jumpCheckHeight, Color.red);
     }
 
 }

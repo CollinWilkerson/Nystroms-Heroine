@@ -14,7 +14,23 @@ public class WalkingState : MonoBehaviour, IHeroineState
     {
         if (_heroine == null)
             return;
-        if (Input.GetKey(KeyCode.A))
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _heroine.Transition(gameObject.AddComponent<RuningState>());
+            Destroy(this);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _heroine.Transition(gameObject.AddComponent<JumpingState>());
+            Destroy(this);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            _heroine.Transition(gameObject.AddComponent<DuckingState>());
+            Destroy(this);
+        }
+        else if (Input.GetKey(KeyCode.A))
         {
             left = true;
         }
@@ -22,15 +38,11 @@ public class WalkingState : MonoBehaviour, IHeroineState
         {
             left = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _heroine.Transition(gameObject.AddComponent<JumpingState>());
-            Destroy(this);
-        }
         else
         {
             _heroine.Transition(gameObject.AddComponent<StandingState>());
             Destroy(this);
+            
         }
     }
 
